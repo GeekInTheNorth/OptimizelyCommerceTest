@@ -1,6 +1,7 @@
 ﻿namespace OptimizelyCommerceLearning.ServiceExtensions;
 
 using Microsoft.Extensions.DependencyInjection;
+
 using OptimizelyCommerceLearning.Features.Blocks.Image;
 using OptimizelyCommerceLearning.Features.Pages.Home;
 

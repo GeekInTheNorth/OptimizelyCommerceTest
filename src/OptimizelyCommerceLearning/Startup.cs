@@ -2,11 +2,16 @@ namespace OptimizelyCommerceLearning;
 
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.UI.AspNetIdentity;
+using EPiServer.Commerce.FindSearchProvider;
 using EPiServer.Scheduler;
-using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
+
 using Geta.Optimizely.Categories.Configuration;
+using Geta.Optimizely.Categories.Find.Infrastructure.Initialization;
+using Geta.Optimizely.Categories.Infrastructure.Initialization;
+
 using Mediachase.Commerce.Anonymous;
+
 using OptimizelyCommerceLearning.ServiceExtensions;
 
 public class Startup
@@ -27,15 +32,16 @@ public class Startup
             services.Configure<SchedulerOptions>(options => options.Enabled = false);
         }
 
-        services
-            .AddCmsAspNetIdentity<ApplicationUser>()
-            .AddCommerce()
-            .AddAdminUserRegistration()
-            .AddEmbeddedLocalization<Startup>();
+        services.AddCmsAspNetIdentity<ApplicationUser>()
+                .AddCommerce()
+                .AddAdminUserRegistration()
+                .AddEmbeddedLocalization<Startup>()
+                .AddFind()
+                .AddFindSearchProvider();
 
         services.AddCustomDependencies()
                 .AddGetaCategories()
-                .AddGetaContentTypeIcons(_webHostingEnvironment)
+                .AddGetaContentTypeIcons()
                 .AddRobotsTextHandler()
                 .AddSecurityAdmin();
     }
@@ -53,10 +59,16 @@ public class Startup
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseSecurityAdmin();
+
+        app.UseGetaCategories();
+        app.UseGetaCategoriesFind();
+        app.UseGetaContentTypeIcons();
 
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapContent();
+            endpoints.MapRazorPages();
         });
     }
 }

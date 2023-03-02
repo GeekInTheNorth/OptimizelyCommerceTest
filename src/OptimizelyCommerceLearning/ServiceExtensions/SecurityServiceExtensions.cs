@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+
 using Stott.Security.Optimizely.Common;
 using Stott.Security.Optimizely.Features.Configuration;
 
@@ -17,7 +18,7 @@ public static class SecurityServiceExtensions
             {
                 authorizationOptions.AddPolicy(CspConstants.AuthorizationPolicy, policy =>
                 {
-                    policy.RequireRole("WebAdmins", "AnalyticsAdmin");
+                    policy.RequireRole("WebAdmins");
                 });
             });
 

@@ -1,24 +1,15 @@
 ﻿namespace OptimizelyCommerceLearning.ServiceExtensions;
 
-using System;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Configuration;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Initialization;
+
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 public static class GetaContentTypeIconsServiceExtensions
 {
-    public static IServiceCollection AddGetaContentTypeIcons(
-        this IServiceCollection serviceCollection,
-        IWebHostEnvironment webHostEnvironment)
+    public static IServiceCollection AddGetaContentTypeIcons(this IServiceCollection serviceCollection)
     {
-        if (webHostEnvironment.IsDevelopment() && Environment.OSVersion.Platform == PlatformID.MacOSX)
-        {
-            return serviceCollection;
-        }
-
         serviceCollection.AddContentTypeIcons(x =>
         {
             x.EnableTreeIcons = true;
@@ -32,15 +23,8 @@ public static class GetaContentTypeIconsServiceExtensions
         return serviceCollection;
     }
 
-    public static IApplicationBuilder UseGetaContentTypeIcons(
-        this IApplicationBuilder app,
-        IWebHostEnvironment webHostEnvironment)
+    public static IApplicationBuilder UseGetaContentTypeIcons(this IApplicationBuilder app)
     {
-        if (webHostEnvironment.IsDevelopment() && Environment.OSVersion.Platform == PlatformID.MacOSX)
-        {
-            return app;
-        }
-
         app.UseContentTypeIcons();
 
         return app;

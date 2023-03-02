@@ -12,7 +12,7 @@ public static class RobotsHandlerServiceExtensions
         {
             authorizationOptions.AddPolicy(RobotsConstants.AuthorizationPolicy, policy =>
             {
-                policy.RequireRole("WebAdmins", "SeoAdmin");
+                policy.RequireRole("WebAdmins");
             });
         });
 
