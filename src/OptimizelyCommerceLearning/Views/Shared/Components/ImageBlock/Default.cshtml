@@ -1,0 +1,19 @@
+﻿@model OptimizelyCommerceLearning.Features.Blocks.Image.ImageBlockViewModel
+<div class="container">
+    <div class="image-block">
+        <figure class="image-block__figure">
+
+            <img src="@Url.ContentUrl(Model.ImageReference)" alt="@Model.AltText" />
+
+            @if (!string.IsNullOrWhiteSpace(Model.Caption))
+            {
+                <figcaption class="image-block__caption">
+                    <p class="image-block__title">
+                        @Model.Caption
+                    </p>
+                </figcaption>
+            }
+
+        </figure>
+    </div>
+</div>
